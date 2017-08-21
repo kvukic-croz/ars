@@ -63,7 +63,7 @@ func (t *SimpleChaincode) Query(stub shim.ChaincodeStubInterface, function strin
 
 	// Handle different functions
 	if function == "adHocQuery" { //find entries based on an ad hoc rich query
-		return t.adHocQuery(stub, args)
+		return t.adHocQuery(stub, args), nil
 	}
 	fmt.Println("query did not find func: " + function)
 
