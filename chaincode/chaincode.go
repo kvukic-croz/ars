@@ -132,21 +132,21 @@ func (t *SimpleChaincode) createEntry(stub shim.ChaincodeStubInterface, args []s
 // Query string matching state database syntax is passed in and executed as is.
 // Supports ad hoc queries that can be defined at runtime by the client.
 // =========================================================================================
-func (t *SimpleChaincode) adHocQuery(stub shim.ChaincodeStubInterface, args []string) pb.Response {
+func (t *SimpleChaincode) adHocQuery(stub shim.ChaincodeStubInterface, args []string) ([]byte, error) {
 
 	//   0
 	// "queryString"
 	if len(args) < 1 {
-		return shim.Error("Incorrect number of arguments. Expecting 1")
+		return nil, errors.New("Incorrect number of arguments. Expecting 1")
 	}
 
 	queryString := args[0]
 
 	queryResults, err := getQueryResultForQueryString(stub, queryString)
 	if err != nil {
-		return shim.Error(err.Error())
+		return nil, err
 	}
-	return shim.Success(queryResults)
+	return queryResults, nil
 }
 
 // =========================================================================================
