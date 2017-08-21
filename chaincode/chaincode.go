@@ -34,7 +34,7 @@ type Entry struct {
 // Chaincode upgrade also calls this function to reset or to migrate data.
 // ============================================================================================================================
 func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface, function string, args []string) ([]byte, error) {
-	return shim.Success(nil)
+	return nil, nil
 }
 
 // ============================================================================================================================
@@ -114,7 +114,7 @@ func (t *SimpleChaincode) createEntry(stub shim.ChaincodeStubInterface, args []s
 	entry := &Entry{timestamp, deviceName, attribute, attributeValue}
 	entryJSONasBytes, err := json.Marshal(entry)
 	if err != nil {
-		return shim.Error(err.Error())
+		return nil, err
 	}
 
 	// Save entry to state
